@@ -55,9 +55,11 @@ function recommend(username){
 
   for (var i = 0; i < userList.length; i++) {
     if (pos != i) {
-      valor = adamicAdar(pos, i, userMatrix)
-      var score = {user:userList[i], score:valor};
-      valores.push(score)
+      if(userMatrix[pos][i] != 1) {
+        valor = adamicAdar(pos, i, userMatrix)
+        var score = {user:userList[i], score:valor};
+        valores.push(score)
+      }
     }
 
   }
