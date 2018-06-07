@@ -71,7 +71,8 @@ function recommend(username){
 }
 
 //meu pc por algum motivo doido so abre arquivo se for por link, nao abre arquivo local
-d3.csv("https://raw.githubusercontent.com/ajgan/RC_LinkPrediction/master/cluster2frame.csv", function(csv) {
+d3.csv("cluster2frame.csv", function(csv) {
+  console.log(csv);
   data = csv
   for (var i = 0; i < data.length; i++) {
 
