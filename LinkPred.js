@@ -70,6 +70,80 @@ function recommend(username){
 
 }
 
+/*
+ daq p baixo é pagerank, boy
+*/
+
+function matrixbyscalar(matrix, scalar){
+  dot = []
+  for(var i=0;i<matrix.length;i++){
+      temp = []
+      for(var j=0;j<matrix[i].length;j++){
+          temp.push(matrix[i][j]*scalar);
+      }
+      dot.push(temp)
+  }
+  return dot;
+}
+
+function addmatrices(m1, m2){
+  result = [];
+  for(var i=0;i<m1.length;i++){
+      temp = []
+      for(var j=0;j<m1[0].length;j++){
+          temp.push(m1[i][j] + m2[i][j]);
+      }
+      result.push(temp)
+  }
+
+  return result;
+}
+
+function multiplymatrices(m1, m2) {
+  var result = [];
+  for (var i = 0; i < m1.length; i++) {
+      result[i] = [];
+      for (var j = 0; j < m2[0].length; j++) {
+          var sum = 0;
+          for (var k = 0; k < m1[0].length; k++) {
+              sum += m1[i][k] * m2[k][j];
+          }
+          result[i][j] = sum;
+      }
+  }
+  return result;
+}
+
+function pagerank(matrix, alpha, iterations){
+  rw = []
+  for(var i=0;i<matrix.length;i++){
+      temp = []
+      for(var j=0;j<matrix[i].length;j++){
+          temp.push(matrix[i][j]/(matrix[i].reduce(function(acc,val){
+              return acc+val;
+          })));
+      }
+      rw.push(temp)
+  }
+  
+  tele = []
+  for(var i=0;i<matrix.length;i++){
+      temp = []
+      for(var j=0;j<matrix[i].length;j++){
+          temp.push(1/(matrix[i].length));
+      }
+      tele.push(temp)
+  }
+
+  P = addmatrices(matrixbyscalar(rw, alpha), matrixbyscalar(tele,1-alpha))
+  for(var i=0;i<iterations;i++){
+      P = multiplymatrices(P, P)
+  }
+      
+  return P;
+}
+
+
 //meu pc por algum motivo doido so abre arquivo se for por link, nao abre arquivo local
 d3.csv("cluster2frame.csv", function(csv) {
   console.log(csv);
