@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Instagram Recommendation System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body {
+      font: 400 15px Lato, sans-serif;
+      line-height: 1.8;
+      color: #818181;
+  }
+
+  .jumbotron {
+      background-color: #f4511e;
+      color: #fff;
+      padding: 250px 25px;
+      font-family: Montserrat, sans-serif;
+  }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron" style="display:flex;padding:400px 25px">
+  <h2 style="color:white;position:absolute;top:90px;right:445px">Link Prediction Instagram</h2>
+  <p style="position:absolute;top:140px;right:575px;margin-top:20px">Click to search</p>
+  <form>
+    <div class="input-group" style="margin-left:310px;width:630px;margin-top:-205px">
+      <input [(ngModel)]="searchInput" name="searchInput" (keyup)="showPossibleUsers()" class="form-control" placeholder="Search">
+      <div class="input-group-btn">
+        <button type="button" (click)="recommend(searchInput)" class="btn btn-danger">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <table *ngIf="possibleUsers.length>0" style="background-color:white;color:black;position:absolute;margin-left:24%;margin-top:-170px;width:557px" class="table table-hover">
+    <tbody style="border-top:1px solid black;border-bottom:1px solid black">
+      <tr style="border-top:1px solid black" *ngFor="let user of possibleUsers">
+        <td (click)="setSearchInput(user)" style="width:50%;border:1px solid black;border-top:1px solid black">{{user}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p id="labelRec" style="position:absolute;top:270px;right:550px;margin-top:20px">Recommendations</p>
+  <table id="table2" style="background-color:white;color:black;position:absolute;margin-left:3%;margin-top:-55px;width:90%" class="table table-hover">
+    <tr style="border:1px solid black;border-top:1px solid black">
+      <th style="width:50%;border:1px solid black;border-top:1px solid black;border-bottom:1px solid black">Username</th>
+      <th style="width:50%;border:1px solid black;border-top:1px solid black;border-bottom:1px solid black">Score</th>
+    </tr>
+    <tbody style="border:1px solid black;border-top:1px solid black;border-bottom:1px solid black" *ngIf="searchInput!=''">
+      <tr style="border:1px solid black;border-top:1px solid black" *ngFor="let user of usersToRecommend">
+        <td style="width:50%;border:1px solid black;border-top:1px solid black">{{user.user}}</td>
+        <td style="width:50%;border:1px solid black;border-top:1px solid black">{{user.score}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
